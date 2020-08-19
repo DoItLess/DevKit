@@ -1,0 +1,21 @@
+name: build
+
+on: push
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, ubuntu-18.04, ubuntu-16.04, macos-10.15, windows-2019, windows-2016]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: 执行Cake脚本
+      uses: cake-build/cake-action@v1
+      with:
+        script-path: ./build.cake
+        cake-bootstrap: true
+
+
