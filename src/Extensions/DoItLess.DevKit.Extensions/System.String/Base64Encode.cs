@@ -6,11 +6,12 @@ namespace DoItLess.DevKit.Extensions
     public static partial class StringExtensions
     {
         /// <summary>
-        ///     进行 BASE64 编码
+        ///     BASE64 字符串编码
+        ///     <para>默认使用 <see cref="Encoding.UTF8" /></para>
         /// </summary>
         /// <param name="this"></param>
-        /// <param name="encoding">默认使用 <see cref="Encoding.UTF8" /></param>
-        /// <returns>转换失败返回 <c>null</c></returns>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <example>
         ///     <code>

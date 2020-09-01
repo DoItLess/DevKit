@@ -3,14 +3,18 @@ using System.Text;
 
 namespace DoItLess.DevKit.Extensions
 {
+    /// <summary>
+    ///     String 扩展方法
+    /// </summary>
     public static partial class StringExtensions
     {
         /// <summary>
-        ///     进行 BASE6 4解码
+        ///     BASE64 字符串解码
+        ///     <para>默认使用 <see cref="Encoding.UTF8" /></para>
         /// </summary>
         /// <param name="this"></param>
-        /// <param name="encoding">默认使用 <see cref="Encoding.UTF8" /></param>
-        /// <returns>转换失败返回 <c>null</c></returns>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
         /// <example>
         ///     <code>
         ///         <![CDATA[
