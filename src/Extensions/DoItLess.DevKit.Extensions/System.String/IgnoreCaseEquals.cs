@@ -22,5 +22,8 @@ namespace DoItLess.DevKit.Extensions
         {
             return @this.Equals(value, StringComparison.OrdinalIgnoreCase);
         }
+
+        /// <inheritdoc cref="IgnoreCaseEquals"/>
+        public static bool XEquals(this string @this, string value) => @this.IgnoreCaseEquals(value);
     }
 }
