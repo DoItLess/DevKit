@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>DoItLess.DevKit.SystemInfo.Windows</RootNamespace>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DoItLess.DevKit.Extensions" Version="0.0.1" />
+    <PackageReference Include="System.Management" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DoItLess.DevKit.SystemInfo\DoItLess.DevKit.SystemInfo.csproj" />
+  </ItemGroup>
+
+</Project>
