@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
@@ -16,50 +14,37 @@ namespace DoItLess.DevKit.SystemInfo.Windows
         /// <summary>
         ///     获取OS信息
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        ///     查询失败返回 null
+        /// </returns>
         public static OSCls GetOSInfo()
         {
-            T GetMoValue<T>(ManagementObject mo, string property)
-            {
-                try
-                {
-                    var obj = mo[property];
-                    return !obj.IsNull() ? (T) obj : default;
-                }
-                catch
-                {
-                    return default;
-                }
-            }
-
-            using var mos = new ManagementObjectSearcher("SELECT * FROM Win32_OperatingSystem").Get();
+            using var mos = new ManagementObjectSearcher(Utils.WQL_OS).Get();
             if (mos.IsNull() || mos.Count < 1) return null;
-
-            var mo = mos.Cast<ManagementObject>()
-                        .FirstOrDefault();
+            var mo = mos.Cast<ManagementObject>().FirstOrDefault();
 
             return new OSCls
             {
-                BuildNumber           = GetMoValue<string>(mo, "BuildNumber"),
-                Caption               = GetMoValue<string>(mo, "Caption"),
-                CSDVersion            = GetMoValue<string>(mo, "CSDVersion"),
-                CSName                = GetMoValue<string>(mo, "CSName"),
-                CurrentTimeZone       = GetMoValue<uint>(mo, "CurrentTimeZone"),
-                WMIDescription        = GetMoValue<string>(mo, "Description"),
-                InstallDate           = ManagementDateTimeConverter.ToDateTime(GetMoValue<string>(mo, "InstallDate")),
-                LastBootUpTime        = ManagementDateTimeConverter.ToDateTime(GetMoValue<string>(mo, "LastBootUpTime")),
-                Manufacturer          = GetMoValue<string>(mo, "Manufacturer"),
-                Name                  = GetMoValue<string>(mo, "Name"),
-                NumberOfLicensedUsers = GetMoValue<uint>(mo, "NumberOfLicensedUsers"),
+                BuildNumber           = Utils.GetMoValue<string>(mo, "BuildNumber"),
+                Caption               = Utils.GetMoValue<string>(mo, "Caption"),
+                CSDVersion            = Utils.GetMoValue<string>(mo, "CSDVersion"),
+                CSName                = Utils.GetMoValue<string>(mo, "CSName"),
+                CurrentTimeZone       = Utils.GetMoValue<short>(mo, "CurrentTimeZone"),
+                WMIDescription        = Utils.GetMoValue<string>(mo, "Description"),
+                InstallDate           = ManagementDateTimeConverter.ToDateTime(Utils.GetMoValue<string>(mo, "InstallDate")),
+                LastBootUpTime        = ManagementDateTimeConverter.ToDateTime(Utils.GetMoValue<string>(mo, "LastBootUpTime")),
+                Manufacturer          = Utils.GetMoValue<string>(mo, "Manufacturer"),
+                Name                  = Utils.GetMoValue<string>(mo, "Name"),
+                NumberOfLicensedUsers = Utils.GetMoValue<uint>(mo, "NumberOfLicensedUsers"),
                 OSArchitecture        = RuntimeInformation.OSArchitecture,
-                OSLanguage            = GetMoValue<uint>(mo, "OSLanguage"),
-                RegisteredUser        = GetMoValue<string>(mo, "RegisteredUser"),
-                SerialNumber          = GetMoValue<string>(mo, "SerialNumber"),
-                Status                = GetMoValue<string>(mo, "Status"),
-                SystemDirectory       = GetMoValue<string>(mo, "SystemDirectory"),
-                SystemDrive           = GetMoValue<string>(mo, "SystemDrive"),
-                Version               = GetMoValue<string>(mo, "Version"),
-                WindowsDirectory      = GetMoValue<string>(mo, "WindowsDirectory"),
+                OSLanguage            = Utils.GetMoValue<uint>(mo, "OSLanguage"),
+                RegisteredUser        = Utils.GetMoValue<string>(mo, "RegisteredUser"),
+                SerialNumber          = Utils.GetMoValue<string>(mo, "SerialNumber"),
+                Status                = Utils.GetMoValue<string>(mo, "Status"),
+                SystemDirectory       = Utils.GetMoValue<string>(mo, "SystemDirectory"),
+                SystemDrive           = Utils.GetMoValue<string>(mo, "SystemDrive"),
+                Version               = Utils.GetMoValue<string>(mo, "Version"),
+                WindowsDirectory      = Utils.GetMoValue<string>(mo, "WindowsDirectory"),
                 Description           = RuntimeInformation.OSDescription,
                 NtVersion             = Environment.OSVersion.ToString(),
                 MachineName           = Environment.MachineName,

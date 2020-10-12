@@ -1,8 +1,10 @@
-﻿using System.Text;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 
 namespace DoItLess.DevKit.SystemInfo
 {
-    public class CpuCls
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
+    public class CPU
     {
         /// <summary>
         ///     Cpu 名称
@@ -28,7 +30,7 @@ namespace DoItLess.DevKit.SystemInfo
         ///     物理核心数
         /// </summary>
         public uint NumberOfCores { get; set; }
-        
+
         /// <summary>
         ///     逻辑核心数
         /// </summary>

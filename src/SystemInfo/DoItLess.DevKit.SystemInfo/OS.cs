@@ -28,7 +28,7 @@ namespace DoItLess.DevKit.SystemInfo
         /// <summary>
         ///     当前时区(分钟)
         /// </summary>
-        public uint CurrentTimeZone { get; set; }
+        public short CurrentTimeZone { get; set; }
 
         /// <summary>
         ///     WMI 系统描述

@@ -11,42 +11,31 @@ namespace DoItLess.DevKit.SystemInfo.Windows
     public static partial class SystemInfoCollector
     {
         /// <summary>
-        ///     获取Cpu信息
+        ///     获取Cpu清单
         /// </summary>
-        /// <returns></returns>
-        public static List<CpuCls> GetCpuInfo()
+        /// <returns>
+        ///     查询失败返回 null
+        /// </returns>
+        public static List<CPU> GetCpuList()
         {
-            T GetMoValue<T>(ManagementObject mo, string property)
-            {
-                try
-                {
-                    var obj = mo[property];
-                    return !obj.IsNull() ? (T) obj : default;
-                }
-                catch
-                {
-                    return default;
-                }
-            }
-
-            using var mos = new ManagementObjectSearcher("SELECT * FROM Win32_Processor").Get();
+            using var mos = new ManagementObjectSearcher(Utils.WQL_CPU).Get();
             if (mos.IsNull() || mos.Count < 1) return null;
             return mos.Cast<ManagementObject>()
                       .Where(mo => !mo.IsNull())
-                      .Select(mo => new CpuCls
+                      .Select(mo => new CPU
                       {
-                          Name                          = GetMoValue<string>(mo, nameof(CpuCls.Name)),
-                          Caption                       = GetMoValue<string>(mo, nameof(CpuCls.Caption)),
-                          Description                   = GetMoValue<string>(mo, nameof(CpuCls.Description)),
-                          DeviceID                      = GetMoValue<string>(mo, nameof(CpuCls.DeviceID)),
-                          NumberOfCores                 = GetMoValue<uint>(mo, nameof(CpuCls.NumberOfCores)),
-                          NumberOfLogicalProcessors     = GetMoValue<uint>(mo, nameof(CpuCls.NumberOfLogicalProcessors)),
-                          ThreadCount                   = GetMoValue<uint>(mo, nameof(CpuCls.ThreadCount)),
-                          Manufacturer                  = GetMoValue<string>(mo, nameof(CpuCls.Manufacturer)),
-                          MaxClockSpeed                 = GetMoValue<uint>(mo, nameof(CpuCls.MaxClockSpeed)),
-                          VirtualizationFirmwareEnabled = GetMoValue<bool>(mo, nameof(CpuCls.VirtualizationFirmwareEnabled)),
-                          L2CacheSize                   = GetMoValue<uint>(mo, nameof(CpuCls.L2CacheSize)),
-                          L3CacheSize                   = GetMoValue<uint>(mo, nameof(CpuCls.L3CacheSize))
+                          Name                          = Utils.GetMoValue<string>(mo, "Name"),
+                          Caption                       = Utils.GetMoValue<string>(mo, "Caption"),
+                          Description                   = Utils.GetMoValue<string>(mo, "Description"),
+                          DeviceID                      = Utils.GetMoValue<string>(mo, "DeviceID"),
+                          NumberOfCores                 = Utils.GetMoValue<uint>(mo, "NumberOfCores"),
+                          NumberOfLogicalProcessors     = Utils.GetMoValue<uint>(mo, "NumberOfLogicalProcessors"),
+                          ThreadCount                   = Utils.GetMoValue<uint>(mo, "ThreadCount"),
+                          Manufacturer                  = Utils.GetMoValue<string>(mo, "Manufacturer"),
+                          MaxClockSpeed                 = Utils.GetMoValue<uint>(mo, "MaxClockSpeed"),
+                          VirtualizationFirmwareEnabled = Utils.GetMoValue<bool>(mo, "VirtualizationFirmwareEnabled"),
+                          L2CacheSize                   = Utils.GetMoValue<uint>(mo, "L2CacheSize"),
+                          L3CacheSize                   = Utils.GetMoValue<uint>(mo, "L3CacheSize")
                       }).ToList();
         }
     }
