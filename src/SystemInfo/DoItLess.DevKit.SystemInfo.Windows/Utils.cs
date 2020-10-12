@@ -28,6 +28,11 @@ namespace DoItLess.DevKit.SystemInfo.Windows
         public const string WQL_Memory = "SELECT * FROM Win32_PhysicalMemory";
 
         /// <summary>
+        ///     WQL - Motherboard
+        /// </summary>
+        public const string WQL_Motherboard = "SELECT * FROM Win32_BaseBoard";
+
+        /// <summary>
         ///     获取 <see cref="ManagementObject" /> 值
         /// </summary>
         /// <typeparam name="T"></typeparam>

@@ -2,6 +2,9 @@
 
 namespace DoItLess.DevKit.SystemInfo
 {
+    /// <summary>
+    ///     内存信息
+    /// </summary>
     public class Memory
     {
         /// <summary>
